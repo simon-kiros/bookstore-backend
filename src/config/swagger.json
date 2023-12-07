@@ -141,8 +141,49 @@
     },
 
     "/api/bookstore/books": {
-      "put": {
+      "get": {
         "tags": ["Book"],
+        "summary": "Gets all books",
+        "consumes": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      }
+    },
+    "/api/bookstore/books/{id}": {
+      "get": {
+        "tags": ["Book"],
+        "summary": "Gets single books",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "number",
+            "description": "Book Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/bookstore/books2": {
+      "put": {
+        "tags": ["Book2"],
         "summary": "Gets all books",
         "consumes": ["application/json"],
         "parameters": [
@@ -155,28 +196,12 @@
           },
           {
             "in": "body",
-            "name": "updateUser",
+            "name": "get all books",
             "description": "Request body as following",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "userName": {
-                  "type": "string",
-                  "example": "test"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "test@test.com"
-                },
-                "password": {
-                  "type": "string"
-                },
-                "role": {
-                  "type": "string",
-                  "example": "user"
-                }
-              }
+              "$ref": "#/definitions/Book",
+              "type": "object"
             }
           }
         ],
