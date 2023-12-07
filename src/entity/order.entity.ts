@@ -2,9 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
-  ManyToOne,
-  JoinColumn,
   CreateDateColumn,
 } from "typeorm";
 
@@ -13,17 +10,12 @@ export enum StatusType {
   COMPLETED = "COMPLETED",
   CANCELED = "CANCELED",
 }
-import { User } from "./user.entity";
 
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @ManyToOne(() => User, (user) => user, {
-  //   eager: true,
-  // })
-  //@JoinColumn()
   @Column()
   user: number;
 

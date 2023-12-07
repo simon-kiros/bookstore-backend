@@ -31,6 +31,6 @@ export class MainSeeder implements Seeder {
     factoryManager: SeederFactoryManager
   ): Promise<any> {
     const bookFactory = factoryManager.get(Book);
-    await bookFactory.saveMany(50);
+    await bookFactory.saveMany(100);
   }
 }

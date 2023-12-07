@@ -18,8 +18,6 @@ export const create = async (body: Partial<Order>) => {
           ...values[0],
           ...{ wallet: currentPoint },
         };
-        console.log("usr");
-        console.log(usr);
         UserRepository.save(usr);
         return OrderRepository.save(values[1]);
       }

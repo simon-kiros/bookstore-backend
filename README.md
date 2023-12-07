@@ -34,5 +34,5 @@ Bookstore backend web app built using express, typescript and postgres as databa
 5. Run the swagger doc at
 
 ```bash
-  http://localhost:8000/docs
+  <a href="#">http://localhost:8000/docs</a>
 ```

@@ -5,15 +5,10 @@ import express, { Request, Response, Application } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
-import passport from "passport";
-import session from "express-session";
-import flash from "express-flash";
 import { initialiseDB } from "./config/dataSource";
 import { bookRouter } from "./route/book.route";
 import { userRouter } from "./route/user.route";
 import { orderRouter } from "./route/order.route";
-import { initializePassport } from "./config/passport-config";
-import { swaggerSpec } from "./config/swagger";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
@@ -40,29 +35,9 @@ app.use(
 app.use(bodyParser.json());
 app.use(express.json());
 
-//initializePassport(passport);
-declare module "express-session" {
-  export interface SessionData {
-    userId: number;
-  }
-}
-
-app.use(
-  session({
-    secret: "my-secret-key",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true },
-  })
-);
-
 app.use("/", bookRouter);
 app.use("/", userRouter);
-app.use("/api/bookstore/orders", orderRouter);
-
-app.get("/", (req: Request, res: Response) => {
-  res.send(`Welcome to Express & TypeScript Server => ${__dirname}`);
-});
+app.use("/", orderRouter);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);

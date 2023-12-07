@@ -1,9 +1,5 @@
 import * as userService from "../service/user.service";
 import { RequestHandler } from "express";
-import passport from "passport";
-import { User } from "../entity/user.entity";
-import { UserRepository } from "../repository/user.repository";
-import bcrypt from "bcryptjs";
 
 export const signup: RequestHandler = async (req, res, next) => {
   try {

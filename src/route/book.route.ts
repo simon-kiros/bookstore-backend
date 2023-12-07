@@ -1,7 +1,5 @@
 import express from "express";
 import * as BookController from "../controller/book.controller";
-import { checkNotAuthenticated } from "../config/passport-config";
-import { Book } from "../entity/book.entity";
 const Router = express.Router();
 
 Router.get("/api/bookstore/books/", BookController.findAll);
