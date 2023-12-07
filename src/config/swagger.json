@@ -181,26 +181,19 @@
       }
     },
 
-    "/api/bookstore/books2": {
-      "put": {
-        "tags": ["Book2"],
-        "summary": "Gets all books",
+    "/api/bookstore/orders": {
+      "post": {
+        "tags": ["Order"],
         "consumes": ["application/json"],
+        "description": "Create new book order.",
         "parameters": [
           {
-            "name": "title",
-            "required": true,
-            "in": "path",
-            "type": "string",
-            "description": "Input the Email of the user which should be updated"
-          },
-          {
             "in": "body",
-            "name": "get all books",
+            "name": "create new order",
             "description": "Request body as following",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Book",
+              "$ref": "#/definitions/Order",
               "type": "object"
             }
           }
@@ -209,42 +202,21 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Authentication Successful"
+                },
+                "userId": {
+                  "type": "number",
+                  "example": "5"
+                }
+              }
             }
           },
-          "400": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "statusCode": {
-                  "type": "integer",
-                  "example": 400
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Invalid request body"
-                }
-              }
-            },
-            "description": "Bad Request"
-          },
-          "403": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "statusCode": {
-                  "type": "integer",
-                  "example": 403
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Email is duplicate. You don't have permission to perform this operation!"
-                }
-              }
-            },
-            "description": "Forbidden"
-          },
           "409": {
+            "description": "Username Conflict",
             "schema": {
               "type": "object",
               "properties": {
@@ -254,125 +226,10 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "Requested email wasn't found!"
-                }
-              }
-            },
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["User"],
-        "operationId": "deleteUserUsingPUT",
-        "summary": "Delete User",
-        "consumes": ["application/json"],
-        "description": "Delete User.",
-        "parameters": [
-          {
-            "name": "userEmail",
-            "required": true,
-            "in": "path",
-            "type": "string",
-            "description": "Input the Email of the user which should be deleted"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "409": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "statusCode": {
-                  "type": "integer",
-                  "example": 409
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Requested email wasn't found!"
-                }
-              }
-            },
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/users/signup": {
-      "post": {
-        "tags": ["User"],
-        "operationId": "signupUsingPOST",
-        "summary": "Create User",
-        "consumes": ["application/json"],
-        "description": "Create User.",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "User",
-            "description": "Request body as following",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userName": {
-                  "type": "string",
-                  "example": "test"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "test@test.com"
-                },
-                "password": {
-                  "type": "string"
-                },
-                "role": {
-                  "type": "string",
-                  "example": "user"
+                  "example": "Authentication failed"
                 }
               }
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "400": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "statusCode": {
-                  "type": "integer",
-                  "example": 400
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Invalid request body"
-                }
-              }
-            },
-            "description": "Bad Request"
-          },
-          "403": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "statusCode": {
-                  "type": "integer",
-                  "example": 403
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Email is duplicate. You don't have permission to perform this operation!"
-                }
-              }
-            },
-            "description": "Forbidden"
           }
         }
       }
@@ -446,7 +303,7 @@
       "properties": {
         "user": {
           "type": "number",
-          "example": 5
+          "example": 1
         },
         "book_quantity": {
           "type": "number",
