@@ -1,0 +1,408 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Bookstore API",
+    "version": "1.0.0",
+    "description": "API documentation for book-related operations"
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "User Endpoint"
+    },
+    {
+      "name": "Book",
+      "description": "Book Endpoint"
+    },
+    {
+      "name": "Order",
+      "description": "Order Endpoint"
+    }
+  ],
+  "paths": {
+    "/api/bookstore/auth/signup": {
+      "post": {
+        "tags": ["User"],
+        "summary": "User Signup",
+        "description": "Endpoint for user registration/signup",
+        "responses": {
+          "200": {
+            "description": "User signed up successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/auth/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "User Login",
+        "description": "Endpoint for user login",
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/auth/logout": {
+      "get": {
+        "tags": ["User"],
+        "summary": "User Logout",
+        "description": "Endpoint for user logout",
+        "responses": {
+          "200": {
+            "description": "User logged out successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/auth/user/{id}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get User by ID",
+        "description": "Retrieve user details by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the user to retrieve",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/books/": {
+      "get": {
+        "tags": ["Book"],
+        "summary": "Retrieve all books",
+        "description": "Get all books from the bookstore",
+        "responses": {
+          "200": {
+            "description": "A list of books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Book"],
+        "summary": "Create a new book",
+        "description": "Add a new book to the bookstore",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Book created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookstore/books/{id}": {
+      "get": {
+        "tags": ["Book"],
+        "summary": "Get a book by ID",
+        "description": "Get a book from the bookstore by its ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the book to retrieve",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Book"],
+        "summary": "Update a book by ID",
+        "description": "Update a book in the bookstore by its ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the book to update",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Book"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Book updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Book"],
+        "summary": "Delete a book by ID",
+        "description": "Delete a book from the bookstore by its ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the book to delete",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Book deleted successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/orders/{userId}": {
+      "get": {
+        "tags": ["Order"],
+        "summary": "Find Orders by User",
+        "description": "Retrieve orders by user ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "ID of the user to retrieve orders",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Orders found successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/orders/": {
+      "post": {
+        "tags": ["Order"],
+        "summary": "Create Order",
+        "description": "Endpoint to create a new order",
+        "responses": {
+          "200": {
+            "description": "Order created successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/orders/cancel/{id}": {
+      "get": {
+        "tags": ["Order"],
+        "summary": "Cancel Order",
+        "description": "Cancel an order by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the order to cancel",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order cancelled successfully"
+          }
+        }
+      }
+    },
+    "/api/bookstore/orders/received/{id}": {
+      "get": {
+        "tags": ["Order"],
+        "summary": "Mark Order as Received",
+        "description": "Mark an order as received by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the order to mark as received",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order marked as received successfully"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Book": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the book.",
+            "example": "Electronics Tutorial"
+          },
+          "writer": {
+            "type": "string",
+            "description": "The name of the writer/author of the book.",
+            "example": "Carlos Harber"
+          },
+          "cover": {
+            "type": "string",
+            "format": "url",
+            "description": "URL to the book's cover image.",
+            "example": "https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._AC_SX184_.jpg"
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "description": "The price of the book.",
+            "example": 25
+          },
+          "tag": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": ["fiction"]
+            },
+            "nullable": true,
+            "description": "Tags associated with the book."
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the book.",
+            "example": "Corrumpo curto bos paulatim. Quos arcesso centum vulgivagus uter alter. Verto admoneo repellat thymbra vigilo nulla."
+          }
+        }
+      },
+
+      "User": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "The username of the user.",
+            "unique": true,
+            "example": "dewyn@mailinator.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user.",
+            "example": "123456"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "The full name of the user.",
+            "example": "Aladdin Stuart"
+          },
+          "wallet": {
+            "type": "number",
+            "description": "The wallet balance of the user.",
+            "default": 100,
+            "readOnly": true
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "integer",
+            "description": "The user Id associated with the order.",
+            "example": 1
+          },
+          "book_quantity": {
+            "type": "integer",
+            "description": "The quantity of books in the order.",
+            "example": 2
+          },
+          "price": {
+            "type": "number",
+            "description": "The total price of the order.",
+            "example": 25
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The creation date of the order."
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the order.",
+            "nullable": true,
+            "enum": ["PENDING", "OTHER_STATUS_TYPES"],
+            "default": "PENDING",
+            "readOnly": true
+          }
+        }
+      }
+    }
+  }
+}
