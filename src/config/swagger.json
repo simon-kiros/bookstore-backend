@@ -17,7 +17,7 @@
       "description": "User Endpoint"
     },
     {
-      "name": "Books",
+      "name": "Book",
       "description": "Book Endpoint"
     },
     {
@@ -79,21 +79,22 @@
         }
       }
     },
-
-    "/api/users?query={userEmail}": {
+    "/api/bookstore/auth/login": {
       "get": {
         "tags": ["User"],
-        "operationId": "getUserUsingGET",
-        "summary": "Get user / users",
+        "summary": "Login method used to authenticate user",
         "consumes": ["application/json"],
-        "description": "Fetch the User object based on the provided query parameter. \"test@test.com\" for fetch one user or \"all\" for fetch all users.",
         "parameters": [
           {
-            "name": "userEmail",
+            "username": "userEmail",
             "required": true,
             "in": "path",
             "type": "string",
-            "description": "Email of the user"
+            "description": "Username/Email of the user",
+            "password": "userEmail",
+            "required": true,
+            "type": "string",
+            "description": "Password of the user"
           }
         ],
         "responses": {
@@ -138,16 +139,15 @@
         }
       }
     },
-    "/api/users/{userEmail}": {
+
+    "/api/bookstore/books": {
       "put": {
-        "tags": ["User"],
-        "operationId": "updateUserUsingPUT",
-        "summary": "Update User",
+        "tags": ["Book"],
+        "summary": "Gets all books",
         "consumes": ["application/json"],
-        "description": "Update User object based on the provided object.",
         "parameters": [
           {
-            "name": "userEmail",
+            "name": "title",
             "required": true,
             "in": "path",
             "type": "string",
